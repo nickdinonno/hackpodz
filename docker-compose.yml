@@ -1,0 +1,33 @@
+services:
+  kali:
+    build:
+      context: .
+      dockerfile: kaliHost.dockerfile
+    stdin_open: true
+    tty: true
+    privileged: true
+    networks:
+      - virtualNetwork
+    volumes:
+      - kaliPersist:/persist
+
+  ftpvuln:
+    build:
+      context: .
+      dockerfile: ftpVuln.dockerfile
+    restart: always
+    networks:
+      - virtualNetwork
+  
+  mysqlvuln:
+    build:
+      context: .
+      dockerfile: mysqlVuln.dockerfile
+    networks:
+      - virtualNetwork
+
+networks:
+ virtualNetwork:
+
+volumes:
+  kaliPersist:
